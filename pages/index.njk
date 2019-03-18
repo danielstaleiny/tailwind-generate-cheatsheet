@@ -1,12 +1,1131 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Getting Started</title>
+    <title>OO</title>
+    <script src={{webpack.index}}></script>
   </head>
   <body>
-    <p>ok</p>
+
+      {% set source = ouput.children %}
+
+
+      {% set listR = r/^\.list*/ %}
+      {% set appearanceR = r/^\.appearance/ %}
+      {% set fontR = r/^\.font.*/ %}
+      {% set textR = r/^\.text.*/ %}
+      {% set leadingR = r/^\.leading.*/ %}
+      {% set trackingR = r/^\.tracking.*/ %}
+      {% set bgR = r/\.bg.*/ %}
+      {% set borderR = r/^\.border.*/ %}
+      {% set roundedR = r/^\.rounded.*/ %}
+      {% set wR = r/^\.w-.*/ %}
+      {% set hR = r/^\.h-.*/ %}
+      {% set minwR = r/^\.min-w-.*/ %}
+      {% set minhR = r/^\.min-h-.*/ %}
+      {% set maxwR = r/^\.max-w-.*/ %}
+      {% set maxhR = r/^\.max-h-.*/ %}
+      {% set pR = r/^\.p.?-.*/ %}
+      {% set mR = r/^\.m.?-.*/ %}
+      {% set minusmR = r/^\.-m.?-.*/ %}
+      {% set shadowR = r/^\.shadow.*/ %}
+      {% set zR = r/^\.z-.*/ %}
+      {% set opacityR = r/^\.opacity.*/ %}
+      {% set fillR = r/^\.fill-.*/ %}
+      {% set strokeR = r/^\.stroke.*/ %}
+      {% set cursorR = r/^\.cursor-.*/ %}
+      {% set itemsR = r/^\.items.*/ %}
+      {% set selfR = r/^\.self.*/ %}
+      {% set justifyR = r/^\.justify.*/ %}
+      {% set contentR = r/^\.content.*/ %}
+      {% set flexR = r/^\.flex.*/ %}
+      {% set blockR = r/^\.block.*/ %}
+      {% set inlineblockR = r/^\.inline-block.*/ %}
+      {% set inlineR = r/^\.inline.*/ %}
+      {% set tableR = r/^\.table.*/ %}
+      {% set hiddenR = r/^\.hidden.*/ %}
+      {% set objectR = r/^\.object.*/ %}
+      {% set overflowR = r/^\.overflow.*/ %}
+      {% set outlineR = r/^\.outline.*/ %}
+      {% set scrollingR = r/^\.scrolling.*/ %}
+      {% set staticR = r/^\.static.*/ %}
+      {% set fixedR = r/^\.fixed.*/ %}
+      {% set absoluteR = r/^\.absolute.*/ %}
+      {% set relativeR = r/^\.relative.*/ %}
+      {% set stickyR = r/^\.sticky.*/ %}
+      {% set pinR = r/^\.pin-.*/ %}
+      {% set pointerR = r/^\.pointer.*/ %}
+      {% set resizeR = r/^\.resize.*/ %}
+      {% set italicR = r/^\.italic.*/ %}
+      {% set romanR = r/^\.roman.*/ %}
+      {% set uppercaseR = r/^\.uppercase/ %}
+      {% set lowercaseR = r/^\.lowercase/ %}
+      {% set capitalizeR = r/^\.capitalize/ %}
+      {% set normalcaseR = r/^\.normal-case/ %}
+      {% set underlineR = r/^\.underline/ %}
+      {% set linethroughR = r/^\.line-through/ %}
+      {% set nounderlineR = r/^\.no-underline/ %}
+      {% set antialiasedR = r/^\.antialiased/ %}
+      {% set subpixelR = r/^\.subpixel-antialiased/ %}
+      {% set selectR = r/^\.select-.*/ %}
+      {% set alignR = r/^\.align-.*/ %}
+      {% set visibleR = r/^\.visible/ %}
+      {% set invisibleR = r/^\.invisible/ %}
+      {% set whitespaceR = r/^\.whitespace-.*/ %}
+      {% set breakR = r/^\.break-.*/ %}
+      {% set truncateR = r/^\.truncate/ %}
+      {% set mediaR = r/^@media.*/ %}
+
+      {% set hoverR = r/^\.hover\\:.*/ %}
+      {% set focusR = r/^\.focus\\:.*/ %}
+      {% set focuswithinR = r/^\.focus-within\\:.*/ %}
+      {% set grouphoverR = r/^\.group:hover.*/ %}
+      {% set activeR = r/^\.active\\:.*/ %}
+
+
+      {% macro element(class, class_value) %}
+          <tr>
+              <td class="">{{class | replace("\\","")}}</td>
+              <td>
+                  {% for styles, styles_value in class_value.attributes %}
+                      <span class="block">{{styles}}: {{styles_value}};</span>
+                  {% endfor %}
+              </td>
+          </tr>
+      {% endmacro %}
+
+
+      {% macro checkModule(modules) %}
+          {% if modules %}
+              {{ caller() }}
+          {% endif %}
+      {% endmacro%}
+
+      {% macro printModule(modules) %}
+          {% if modules | length > 0 %}
+              <h3 class="caps font-medium">
+                  <span>{{ caller() }}</span>
+                  {% for variant in modules %}
+                      {% if variant==="responsive" %}
+                          <span class="text-sm bubble">responsive</span>
+                      {% elif variant==="active" %}
+                          <span class="text-sm bubble">active</span>
+                      {% elif variant==="hover" %}
+                          <span class="text-sm bubble">hover</span>
+                      {% elif variant==="focus" %}
+                          <span class="text-sm bubble">focus</span>
+                      {% elif variant==="group-hover" %}
+                          <span class="text-sm bubble">group-hover</span>
+                      {% elif variant==="focus-within" %}
+                          <span class="text-sm bubble">focus-within</span>
+                      {% endif %}
+
+                  {% endfor %}
+              </h3>
+          {% else %}
+              <h3 class="caps font-medium">{{ caller() }}</h3>
+          {% endif %}
+      {% endmacro%}
+
+
+      <!-- // .font-{name} -->
+      <!-- // .text-{size} -->
+      <!-- // .font-{weight} -->
+      <!-- // .leading-{size} -->
+      <!-- // .tracking-{size} -->
+      <!-- // .text-{color} -->
+      <!-- // .bg-{color} -->
+      <!-- // .bg-{size} -->
+      <!-- // .border{-side?}{-width?} -->
+      <!-- // .border-{color} -->
+      <!-- // .rounded{-side?}{-size?} -->
+      <!-- // .w-{size} -->
+      <!-- // .h-{size} -->
+      <!-- // .min-w-{size} -->
+      <!-- // .min-h-{size} -->
+      <!-- // .max-w-{size} -->
+      <!-- // .max-h-{size} -->
+      <!-- // .p{side?}-{size} -->
+      <!-- //  .m{side?}-{size} -->
+      <!-- // .-m{side?}-{size} -->
+      <!-- // .shadow-{size?} -->
+      <!-- // .z-{index} -->
+      <!-- // .opacity-{name} -->
+      <!-- // .fill-{name} -->
+      <!-- // .stroke-{name} -->
+
+
+      <main>
+          <div class="page">
+
+
+              <div class="container">
+      <h1 class="caps font-bold">Tailwindcss Cheatsheet</h1>
+      <!-- <h1 class="">{{ tailwind.modules }}</h1> -->
+      <section class="box">
+          <h2 class="caps font-medium">Colors</h2>
+          <table class="table">
+              <tr>
+                  <th>Name</th>
+                  <th>Value</th>
+              </tr>
+          {% for color, value in tailwind.colors %}
+              <tr>
+                  <td>{{ color }}:</td>
+                  <td>{{ value }}</td>
+              </tr>
+          {% endfor %}
+          </table>
+      </section>
+      <section class="box">
+          <h2 class="caps font-medium">Media Queries</h2>
+          <table class="table">
+              <tr>
+                  <th>Breakpoint</th>
+                  <th>Value</th>
+              </tr>
+          {% for media, value in tailwind.screens %}
+              <tr>
+                  <td>{{ media }}:</td>
+                  <td>{{ value }}</td>
+              </tr>
+          {% endfor %}
+          </table>
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Layout</h2>
+          <!-- <h3 class=caps font-medium>Container</h3> -->
+          <!-- TODO -->
+
+          {#% call checkModule(tailwind.modules.) -%#}
+          <div>
+              {#% call printModule(tailwind.modules.) -%#}
+              <h3 class="caps font-medium">Display</h3>
+              {#%- endcall %#}
+
+              <table class="table">
+                  <tr>
+                      <th>Class</th>
+                      <th>Properties</th>
+                  </tr>
+                  {% for cls, value in source %}
+                      {% if blockR.test(cls) or inlineblockR.test(cls) or inlineR.test(cls) or hiddenR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+              </table>
+          </div>
+          {#%- endcall %#}
+
+          <!-- .block 	display: block; -->
+          <!-- .box 	display: box; -->
+          <!-- .inline 	display: inline; -->
+          <!-- .table 	display: table; -->
+          <!-- .table-row 	display: table-row; -->
+          <!-- .table-cell 	display: table-cell; -->
+          <!-- .hidden 	display: none; -->
+          <!-- .flex 	display: flex; -->
+          <!-- .inline-flex -->
+
+          {% call checkModule(tailwind.modules.float) -%}
+              <div>
+                  {% call printModule(tailwind.modules.float) -%}
+                      <span>Floats</span>
+                  {%- endcall %}
+              </div>
+          {%- endcall %}
+
+
+          {% call checkModule(tailwind.modules.objectFit) -%}
+              <div>
+                  {% call printModule(tailwind.modules.objectFit) -%}
+                      <span>Object Position</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if objectR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+
+          {% call checkModule(tailwind.modules.overflow) -%}
+              <div>
+                  {% call printModule(tailwind.modules.overflow) -%}
+                      <span>Overflow</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if overflowR.test(cls) or scrollingR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.position) -%}
+              <div>
+                  {% call printModule(tailwind.modules.position) -%}
+                      <span>Position</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if pinR.test(cls) or staticR.test(cls) or fixedR.test(cls) or absoluteR.test(cls) or relativeR.test(cls) or stickyR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.visibility) -%}
+              <div>
+                  {% call printModule(tailwind.modules.visibility) -%}
+                      <span>Visibility</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if visibleR.test(cls) or invisibleR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.zIndex) -%}
+              <div>
+                  {% call printModule(tailwind.modules.zIndex) -%}
+                      <span>Z-index</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if zR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Typography</h2>
+          <div>
+              {% call printModule(tailwind.modules.textColors) -%}
+                  <span>Color </span>
+              {%- endcall %}
+
+              {% call printModule(tailwind.modules.fonts) -%}
+                  <span>Font Family </span>
+              {%- endcall %}
+              {% call printModule(tailwind.modules.textSizes) -%}
+                  <span>Font Size </span>
+              {%- endcall %}
+              {% call printModule(tailwind.modules.fontWeight) -%}
+                  <span>Font Weight </span>
+              {%- endcall %}
+              {% call printModule(tailwind.modules.textAlign) -%}
+                  <span>Font Aligment </span>
+              {%- endcall %}
+              <table class="table">
+                  <tr>
+                      <th>Class</th>
+                      <th>Properties</th>
+                  </tr>
+                  {% for cls, value in source %}
+                      {% if textR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  {% for cls, value in source %}
+                      {% if fontR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+              </table>
+          </div>
+
+          {% call checkModule(tailwind.modules.tracking) -%}
+              <div>
+                  {% call printModule(tailwind.modules.tracking) -%}
+                      <span>Letter Spacing</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if trackingR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+
+          {% call checkModule(tailwind.modules.leading) -%}
+              <div>
+                  {% call printModule(tailwind.modules.leading) -%}
+                      <span>Line Height</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if leadingR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.lists) -%}
+              <div>
+                  {% call printModule(tailwind.modules.lists) -%}
+                      <span>Lists</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if listR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.textStyle) -%}
+              <div>
+                  {% call printModule(tailwind.modules.textStyle) -%}
+                      <span>Style & Decoration</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if italicR.test(cls) or romanR.test(cls)  or uppercaseR.test(cls)  or lowercaseR.test(cls)  or capitalizeR.test(cls)  or normalcaseR.test(cls)  or underlineR.test(cls)  or linethroughR.test(cls)  or nounderlineR.test(cls)  or antialiasedR.test(cls) or subpixelR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.verticalAlign) -%}
+              <div>
+                  {% call printModule(tailwind.modules.verticalAlign) -%}
+                      <span>Vertical Alignment</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if alignR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.whitespace) -%}
+              <div>
+                  {% call printModule(tailwind.modules.whitespace) -%}
+                      <span>Whitespace & Wrapping</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if whitespaceR.test(cls) or breakR.test(cls) or truncateR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Backgrounds</h2>
+              <div>
+                  {% call printModule(tailwind.modules.backgroundAttachment) -%}
+                      <span>Background Attachment</span>
+                  {%- endcall %}
+
+                  {% call printModule(tailwind.modules.backgroundColors) -%}
+                      <span>Background Color</span>
+                  {%- endcall %}
+
+                  {% call printModule(tailwind.modules.backgroundPosiotn) -%}
+                      <span>Background Position</span>
+                  {%- endcall %}
+
+                  {% call printModule(tailwind.modules.backgroundRepeat) -%}
+                      <span>Background Repeat</span>
+                  {%- endcall %}
+                  {% call printModule(tailwind.modules.backgroundSize) -%}
+                      <span>Background Size</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if bgR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Borders</h2>
+              <div>
+                  {% call printModule(tailwind.modules.borderCollapse) -%}
+                      <span>Border Collapse</span>
+                  {%- endcall %}
+                  {% call printModule(tailwind.modules.borderColors) -%}
+                      <span>Border Color</span>
+                  {%- endcall %}
+                  {% call printModule(tailwind.modules.borderStyle) -%}
+                      <span>Border Style</span>
+                  {%- endcall %}
+                  {% call printModule(tailwind.modules.borderWidths) -%}
+                      <span>Border Width</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if borderR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+              <div>
+                  {% call printModule(tailwind.modules.borderRadius) -%}
+                      <span>Border Radius</span>
+                  {%- endcall %}
+
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if roundedR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Flexbox</h2>
+          {% call checkModule(tailwind.modules.flexbox) -%}
+              <div>
+                  {% call printModule(tailwind.modules.flexbox) -%}
+                      <span>Flexbox</span>
+                  {%- endcall %}
+
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if itemsR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  {% for cls, value in source %}
+                      {% if contentR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  {% for cls, value in source %}
+                      {% if selfR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  {% for cls, value in source %}
+                      {% if justifyR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  {% for cls, value in source %}
+                      {% if flexR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  {% for cls, value in source %}
+                      {% if flexR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+              <!-- <h3 class=caps font-medium>Display</h3> -->
+              <!-- <h3 class=caps font-medium>Flex Direction</h3> -->
+              <!-- <h3 class=caps font-medium>Flex Wrapping</h3> -->
+              <!-- <h3 class=caps font-medium>Align Items</h3> -->
+              <!-- <h3 class=caps font-medium>Align Content</h3> -->
+              <!-- <h3 class=caps font-medium>Align Self</h3> -->
+              <!-- <h3 class=caps font-medium>Justify Content</h3> -->
+              <!-- <h3 class=caps font-medium>Flex, Grow & Shrink</h3> -->
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Spacing</h2>
+          {% call checkModule(tailwind.modules.margin) -%}
+              <div>
+                  {% call printModule(tailwind.modules.margin) -%}
+                      <span>Margin</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if mR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.padding) -%}
+              <div>
+                  {% call printModule(tailwind.modules.padding) -%}
+                      <span>Padding</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if pR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.negativeMargin) -%}
+              <div>
+                  {% call printModule(tailwind.modules.negativeMargin) -%}
+                      <span>Negative Margin</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if minusmR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Sizing</h2>
+          {% call checkModule(tailwind.modules.width) -%}
+              <div>
+                  {% call printModule(tailwind.modules.width) -%}
+                      <span>Width</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if wR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.minWidth) -%}
+              <div>
+                  {% call printModule(tailwind.modules.minWidth) -%}
+                      <span>Min Width</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if minwR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.maxWidth) -%}
+              <div>
+                  {% call printModule(tailwind.modules.maxWidth) -%}
+                      <span>Max Width</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if maxwR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.height) -%}
+              <div>
+                  {% call printModule(tailwind.modules.height) -%}
+                      <span>Height</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if hR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.minHeight) -%}
+              <div>
+                  {% call printModule(tailwind.modules.minHeight) -%}
+                      <span>Min Height</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if minhR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.maxHeight) -%}
+              <div>
+                  {% call printModule(tailwind.modules.maxHeight) -%}
+                      <span>Max Height</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if maxhR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Tables</h2>
+          {% call checkModule(tailwind.modules.tableLayout) -%}
+              <div>
+                  {% call printModule(tailwind.modules.tableLayout) -%}
+                      <span>Table Layout</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if tableR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Effects</h2>
+          {% call checkModule(tailwind.modules.shadows) -%}
+              <div>
+                  {% call printModule(tailwind.modules.shadows) -%}
+                      <span>Box Shadow</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if shadowR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.opacity) -%}
+              <div>
+                  {% call printModule(tailwind.modules.opacity) -%}
+                      <span>Opacity</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if opacityR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Interactivity</h2>
+          {% call checkModule(tailwind.modules.appearance) -%}
+              <div>
+                  {% call printModule(tailwind.modules.appearance) -%}
+                      <span>Appearance</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if appearanceR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.cursor) -%}
+              <div>
+                  {% call printModule(tailwind.modules.cursor) -%}
+                      <span>Cursor</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if cursorR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.outline) -%}
+              <div>
+                  {% call printModule(tailwind.modules.outline) -%}
+                      <span>Outline</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if outlineR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.pointerEvents) -%}
+              <div>
+                  {% call printModule(tailwind.modules.pointerEvents) -%}
+                      <span>Pointer Events</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if pointerR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.resize) -%}
+              <div>
+                  {% call printModule(tailwind.modules.resize) -%}
+                      <span>Resize</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if resizeR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+          {% call checkModule(tailwind.modules.userSelect) -%}
+              <div>
+                  {% call printModule(tailwind.modules.userSelect) -%}
+                      <span>User Select</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if selectR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+      </section>
+
+      <section class="box">
+          <h2 class="caps font-medium">Svg</h2>
+          {% call checkModule(tailwind.modules.svgFill) -%}
+              <div>
+                  {% call printModule(tailwind.modules.svgFill) -%}
+                      <span>Fill & Stroke</span>
+                  {%- endcall %}
+                  <table class="table">
+                      <tr>
+                          <th>Class</th>
+                          <th>Properties</th>
+                      </tr>
+                  {% for cls, value in source %}
+                      {% if fillR.test(cls) or strokeR.test(cls) %}
+                          {{ element(cls, value) }}
+                      {% endif %}
+                  {% endfor %}
+                  </table>
+              </div>
+          {%- endcall %}
+      </section>
+
+
+    {#% for class, class_value in ouput.children %#}
+
+        {#% if hoverR.test(class) or focusR.test(class) or focuswithinR.test(class) or grouphoverR.test(class) or activeR.test(class) or mediaR.test(class) %#}
+        {#% else %#}
+      <!-- <h2 class="">{{class | replace("\\","")}}</h2> -->
+        {#% endif %#}
+
+
+        {#% if hoverR.test(class) or focusR.test(class) or focuswithinR.test(class) or grouphoverR.test(class) or activeR.test(class) or mediaR.test(class) %#}
+        {#% elif textR.test(class) %#}
+        <!-- <p>TEXT</p> -->
+        {#% elif listR.test(class) %#}
+        <!-- <p>LIST</p> -->
+        {#% elif appearanceR.test(class) %#}
+        <!-- <p>APPEARANCE</p> -->
+        {#% elif fontR.test(class) %#}
+        <!-- <p>FONT</p> -->
+        {#% elif leadingR.test(class) %#}
+        <!-- <p>LEADING</p> -->
+        {#% elif trackingR.test(class) %#}
+        <!-- <p>TRACKING</p> -->
+        {#% elif bgR.test(class) %#}
+        <!-- <p>Background</p> -->
+        {#% elif borderR.test(class) %#}
+        <!-- <p>Border</p> -->
+        {#% elif roundedR.test(class) %#}
+        <!-- <p>Rounded</p> -->
+        {#% elif wR.test(class) %#}
+        <!-- <p>WIDTH</p> -->
+        {#% elif hR.test(class) %#}
+        <!-- <p>HEIGHT</p> -->
+        {#% elif minwR.test(class) %#}
+        <!-- <p>MIN WIDTH</p> -->
+        {#% elif minhR.test(class) %#}
+        <!-- <p>MIN HEIGHT</p> -->
+        {#% elif maxwR.test(class) %#}
+        <!-- <p>MAX WIDTH</p> -->
+        {#% elif maxhR.test(class) %#}
+        <!-- <p>MAX HEIGHT</p> -->
+        {#% elif pinR.test(class) %#}
+        <!-- <p>PIN</p> -->
+        {#% elif pointerR.test(class) %#}
+        <!-- <p>POINTERS</p> -->
+        {#% elif pR.test(class) %#}
+        <!-- <p>PADDING</p> -->
+        {#% elif mR.test(class) %#}
+        <!-- <p>MARGING</p> -->
+        {#% elif minusmR.test(class) %#}
+        <!-- <p>MINUS MARGING</p> -->
+        {#% elif shadowR.test(class) %#}
+        <!-- <p>Shadow </p> -->
+        {#% elif zR.test(class) %#}
+        <!-- <p>Z-index </p> -->
+        {#% elif opacityR.test(class) %#}
+        <!-- <p>Opacity</p> -->
+        {#% elif fillR.test(class) %#}
+        <!-- <p>Fill</p> -->
+        {#% elif strokeR.test(class) %#}
+        <!-- <p>Storke</p> -->
+        {#% elif cursorR.test(class) %#}
+        <!-- <p>CURSOR</p> -->
+        {#% elif blockR.test(class) or inlineblockR.test(class) or inlineR.test(class) %#}
+        <!-- <p>DISPLAY</p> -->
+        {#% elif tableR.test(class) %#}
+            <!-- <p>TABLE</p> -->
+        {#% elif hiddenR.test(class) %#}
+            <!-- <p>HIDDEN</p> -->
+        {#% elif itemsR.test(class) %#}
+            <!-- <p>ITEMS</p> -->
+        {#% elif selfR.test(class) %#}
+            <!-- <p>SELF</p> -->
+        {#% elif justifyR.test(class) %#}
+            <!-- <p>JUSTIFY</p> -->
+        {#% elif contentR.test(class) %#}
+            <!-- <p>CONTENT</p> -->
+        {#% elif flexR.test(class) %#}
+            <!-- <p>FLEX</p> -->
+        {#% elif objectR.test(class) %#}
+            <!-- <p>OBJECT</p> -->
+        {#% elif overflowR.test(class) %#}
+            <!-- <p>OVERFLOW</p> -->
+        {#% elif outlineR.test(class) %#}
+            <!-- <p>OUTLINE</p> -->
+        {#% elif scrollingR.test(class) %#}
+            <!-- <p>SCROLLING</p> -->
+        {#% elif staticR.test(class) or fixedR.test(class) or absoluteR.test(class) or relativeR.test(class) or stickyR.test(class) %#}
+            <!-- <p>POSITION</p> -->
+        {#% elif resizeR.test(class) %#}
+            <!-- <p>RESIZE</p> -->
+        {#% elif italicR.test(class)  or romanR.test(class)  or uppercaseR.test(class)  or lowercaseR.test(class)  or capitalizeR.test(class)  or normalcaseR.test(class)  or underlineR.test(class)  or linethroughR.test(class)  or nounderlineR.test(class)  or antialiasedR.test(class) or subpixelR.test(class) %#}
+            <!-- <p>TYPOGRAPHY</p> -->
+
+        {#% elif selectR.test(class) %#}
+            <!-- <p>SELECT</p> -->
+        {#% elif alignR.test(class) %#}
+            <!-- <p>ALIGN</p> -->
+        {#% elif visibleR.test(class) or invisibleR.test(class) %#}
+            <!-- <p>VISIBILITY</p> -->
+        {#% elif whitespaceR.test(class) %#}
+            <!-- <p>WHITESPACE</p> -->
+        {#% elif breakR.test(class) %#}
+            <!-- <p>BREAK</p> -->
+        {#% elif truncateR.test(class) %#}
+            <!-- <p>TRUNCATE</p><!--  --><!--  --><!--  --><!--  --> 
+
+        {#% else %#}
+      <!-- <p class="text-red">NOTHING {{class}}</p> -->
+        {#% endif %#}
+    {#% for styles, styles_value in class_value.attributes %#}
+
+        {#% if hoverR.test(class) or focusR.test(class) or focuswithinR.test(class) or grouphoverR.test(class) or activeR.test(class) or mediaR.test(class) %#}
+            <!-- <p>ACTIVE</p> -->
+        {#% else %#}
+            <!-- <p class="">{{styles}}: {{styles_value}};</p> -->
+        {#% endif %#}
+
+    {#% endfor %#}
+        <!-- {#% if module_value !== false %#} -->
+            {#% if module === 'appearance' %#}
+        <!-- <p class="hello">{{name}} - {{value}}</p> -->
+                <!-- <p>.appearance-none - appearance: none;</p> -->
+
+        {#% elif tired %#}
+                <!-- I am tired -->
+            {#% else %#}
+                <!-- I am good! -->
+            {#% endif %#}
+
+                <!-- <h2 class="capitalize"> {{module}}</h2> -->
+        {#% endif %#}
+
+    {#% endfor %#}
+
+
+
+    {#% for index,obj in tailwind.config %#}
+    <!-- <h1 class="hello">{{index}} </h1> -->
+    {#% for name,value in obj %#}
+    <!-- <p class="hello">{{name}} - {{value}}</p> -->
+    {#% endfor %#}
+    {#% endfor %#}
+      </div>
+          </div>
+      </main>
   </body>
 
-  <script src={{webpack.index}}></script>
 </html>
 

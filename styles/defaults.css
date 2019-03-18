@@ -1,0 +1,27 @@
+a {
+    @apply no-underline cursor-pointer outline-none text-black border-b;
+}
+a:hover {
+    @apply bg-green;
+}
+a:active {
+    @apply bg-red;
+}
+a:visited {
+    @apply bg-yellow;
+}
+/* Sets so the footer stay always on the bottom. */
+main {
+    @apply flex-1;
+}
+video,
+img {
+    @apply outline-none;
+    @apply w-full;
+}
+@screen m {
+    video,
+    img {
+        @apply w-auto;
+    }
+}

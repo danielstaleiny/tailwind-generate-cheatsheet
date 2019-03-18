@@ -39,21 +39,39 @@ module.exports = () => {
     return {
         mode: process.env.NODE_ENV || 'development',
         entry: files,
-        plugins: [new CleanWebpackPlugin(['dist/_js'])],
+        plugins: [new CleanWebpackPlugin(['dist/js'])],
         devtool:
             process.env.NODE_ENV === 'production'
                 ? undefined
                 : 'inline-source-map',
         output: {
             filename: '[name]-[hash].js',
-            path: path.resolve(__dirname, 'dist', '_js')
+            path: path.resolve(__dirname, 'dist', 'js')
         },
         module: {
             rules: [
                 {
                     test: /\.css$/,
-                    use: ['style-loader', 'css-loader']
+                    exclude: /node_modules/,
+                    use: [
+                        {
+                            loader: 'style-loader'
+                        },
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                importLoaders: 1
+                            }
+                        },
+                        {
+                            loader: 'postcss-loader'
+                        }
+                    ]
                 }
+                // {
+                //     test: /\.css$/,
+                //     use: ['style-loader', 'postcss-loader']
+                // }
                 // ,{
                 //   test: /\.(png|svg|jpg|gif)$/,
                 //   use: ["file-loader"]

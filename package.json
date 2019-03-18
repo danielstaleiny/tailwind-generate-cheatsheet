@@ -4,11 +4,12 @@
   "description": "Create cheatsheet static site generated from tailwind.config with search functionality.",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development npm run webpack:watch & npm run eleventy:watch",
+    "dev": "NODE_ENV=development eleventy --serve --port=3000 & ag -l | entr -s 'webpack && eleventy'",
+    "watch": "NODE_ENV=development npm run webpack:watch & sleep 1s && npm run eleventy:watch",
     "webpack:watch": "webpack --watch",
     "eleventy:watch": "eleventy --serve --watch --port=3000",
     "start": "npm run dev",
-    "build": "NODE_ENV=production webpack && eleventy",
+    "build": "rm -rf dist && NODE_ENV=production webpack && eleventy",
     "test": "jest",
     "debug": "DEBUG=Eleventy* eleventy"
   },
@@ -33,12 +34,17 @@
     "webpack": "^4.29.5",
     "webpack-cli": "^3.2.3"
   },
-    "dependencies": {},
-    "prettier": {
-        "tabWidth": 4,
-        "semi": false,
-        "singleQuote": true,
-        "bracketSpacing": true,
-        "printWidth": 80
-    }
+  "dependencies": {
+    "css-to-json": "^2.1.0",
+    "postcss-easy-import": "^3.0.0",
+    "postcss-loader": "^3.0.0",
+    "tailwindcss": "^0.7.4"
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "semi": false,
+    "singleQuote": true,
+    "bracketSpacing": true,
+    "printWidth": 80
+  }
 }

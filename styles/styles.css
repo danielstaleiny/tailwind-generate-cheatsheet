@@ -1,0 +1,16 @@
+@import './preflight.css';
+@import "tailwindcss/preflight";
+
+@import './typography.css';
+@import './defaults.css';
+
+/* @import './before-tailwind.css'; */
+@import "tailwindcss/components";
+
+/* all the classes here */
+@import './components.css';
+
+@import "tailwindcss/utilities";
+
+/* all the utils,(modifiers) here */
+/* @import './utilities.css'; */

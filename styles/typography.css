@@ -1,0 +1,112 @@
+html {
+    @apply font-sans;
+}
+@media (min-width: 46.25em) and (max-width: 50em){
+    html {
+        font-size: 1.0625em;
+    }
+}
+@media (min-width: 50em) and (max-width: 63.75em) {
+    html {
+        font-size: 1.125em;
+    }
+}
+@media (min-width: 63.75em) and (max-width: 79em) {
+    html {
+        font-size: 1.1875em;
+    }
+}
+@media (min-width: 79em) and (max-width: 125em) {
+    html {
+        font-size: 1.25em;
+    }
+}
+@media (min-width: 125em) and (max-width: 200em) {
+    html {
+        font-size: 1.3125em;
+    }
+}
+@media (min-width: 200em) and (max-width: 400em) {
+    html {
+        font-size: 1.375em;
+    }
+}
+@media (min-width: 400em) {
+    html {
+        font-size: 1.5em;
+    }
+}
+body {
+    font-size-adjust: 0.5;
+    line-height: 1.5;
+    @apply text-green bg-primary;
+    text-rendering: optimizeLegibility;
+    -moz-font-feature-settings: "liga" on;
+}
+/* dark mode  */
+/* body { */
+/*     @apply bg-blackish text-white; */
+/* } */
+
+/* @media (min-width: 50em) and (max-width: 79em) { */
+/*     body { */
+/*         line-height: 1.325; */
+/*     } */
+/* } */
+/* @media (min-width: 79em) and (max-width: 125em) { */
+/*     body { */
+/*         line-height: 1.35; */
+/*     } */
+/* } */
+/* @media (min-width: 125em) and (max-width: 200em) { */
+/*     body { */
+/*         line-height: 1.375; */
+/*     } */
+/* } */
+/* @media (min-width: 200em) { */
+/*     body { */
+/*         line-height: 1.4; */
+/*     } */
+/* } */
+input::placeholder, textarea::placeholder {
+    @apply font-sans;
+}
+
+blockquote, dl, dd, h1, h2, h3, h4, h5, h6, figure, p, pre{
+    @apply mb-1;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
+    @apply tracking-tight;
+}
+
+h1, .h1 {
+    @apply mt-3 mb-1 text-h1 leading-3;
+}
+h2, .h2{
+    @apply mt-2 mb-1 text-h2 leading-2;
+}
+h3, .h3 {
+    @apply mt-2 mb-1 text-h3 leading-2;
+}
+h4, .h4{
+    @apply mt-1 mb-0 text-h4 leading-1;
+}
+h5, .h5{
+    @apply mt-1 mb-0 text-xl leading-1;
+}
+h6, .h6{
+    @apply mt-1 mb-0 text-lg leading-1;
+}
+
+p {
+    @apply max-w-text;
+}
+
+ul, ol {
+    @apply pl-0 mb-2;
+    list-style-position: outside;
+}
+/* li { */
+/*     @apply list-reset; */
+/* } */

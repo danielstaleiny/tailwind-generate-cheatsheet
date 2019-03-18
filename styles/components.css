@@ -1,0 +1,170 @@
+/* Add container responsive version. */
+
+@screen m {
+    .container {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .m\:container {
+        max-width: config('screens.m');
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }
+}
+@screen l {
+    .m\:container {
+        max-width: config('screens.l');
+    }
+    .l\:container {
+        max-width: config('screens.l');
+        margin-right: auto;
+        margin-left: auto;
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }
+}
+
+
+/* makes sure that the component is min height is 100vh */
+/* use page instead of main wrapper */
+.page,
+.main-wrapper {
+    @apply flex min-h-screen flex-col;
+}
+.row {
+    @apply flex flex-row flex-wrap;
+    @apply pr-1;
+}
+
+.row-column {
+    @apply flex flex-col flex-wrap;
+    @apply p-1;
+}
+
+.col {
+    flex-basis: 100%;
+    @apply pl-1;
+}
+@screen m {
+    .col {
+        flex-basis: 50%;
+        @apply pl-2;
+    }
+    .row{
+        @apply pr-2;
+    }
+}
+
+@screen l {
+    .col {
+        flex-basis: 25%;
+    }
+}
+
+/* .flex-basis-1 { */
+/*     flex-basis: 100%; */
+/* } */
+/* .flex-basis-1\/2 { */
+/*     flex-basis: 50%; */
+/* } */
+/* .flex-basis-1\/4 { */
+/*     flex-basis: 25%; */
+/* } */
+/* @screen l { */
+/*     .l\:flex-basis-1\/5 { */
+/*         flex-basis: 20%; */
+/*     } */
+/* } */
+/* .col-1 { */
+/*     flex-basis: 50%; */
+/* } */
+/* @screen m { */
+/*     .col-1 { */
+/*         flex-basis: 25%; */
+/*     } */
+/* } */
+
+.pointer {
+    @apply cursor-pointer;
+}
+.center {
+    @apply justify-center;
+}
+/* vertical center */
+.v-center {
+    @apply items-center;
+}
+.caps {
+    @apply uppercase;
+    @apply tracking-wide;
+}
+
+/* .btn { */
+/*     @apply no-underline pt-1/2-em px-2-em shadow; */
+/*     padding-bottom: 0.49em; */
+/*     transition: all 0.2s ease 0s; */
+/* } */
+/* .btn-lg { */
+/*     @apply pt-3/4-em px-3-em; */
+/*     padding-bottom: 0.74em; */
+/* } */
+
+/* .btn-black { */
+/*     @apply text-white bg-black border-2 border-transparent; */
+/*     fill: config('colors.white'); */
+/* } */
+/* .btn-black:hover, */
+/* .btn-black:active { */
+/*     @apply text-black bg-white border-2 border-black; */
+/*     fill: config('colors.black'); */
+/* } */
+
+/* .btn-underline { */
+/*     @apply text-black bg-white border-2 border-black; */
+/*     fill: config('colors.black'); */
+/* } */
+/* .btn-underline:hover, */
+/* .btn-underline:active { */
+/*     @apply underline; */
+/* } */
+.w {
+    @apply w-full;
+}
+.w-screen {
+    @apply max-w-full;
+}
+@screen m {
+    .w {
+        @apply w-auto;
+    }
+}
+.bubble {
+    @apply text-red;
+    vertical-align: super;
+}
+
+.table {
+    @apply w-full text-left border-t border-b border-blue-dark overflow-y-auto;
+    @apply shadow-md;
+}
+.table tr {
+    @apply align-baseline;
+}
+.table th {
+    @apply text-sm font-semibold text-blue-dark p-1/2 bg-black border-b border-blue-dark;
+}
+.table td {
+    @apply text-xs border-t border-grey-darker font-mono p-1/2;
+}
+
+.table td:nth-child(1) {
+    @apply text-green whitespace-no-wrap font-semibold;
+}
+.table td:nth-child(2) {
+    @apply text-blue-2;
+}
+
+
+
